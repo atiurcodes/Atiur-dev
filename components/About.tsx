@@ -68,17 +68,28 @@ export function About() {
       className="relative border-t border-border/60 py-20 sm:py-24"
     >
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12">
-          {/* Left Column: About Story */}
-          <div className="lg:col-span-6 animate-fade-up">
-            <p className="font-mono text-xs font-semibold uppercase tracking-widest text-accent">
-              / About Me
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-heading sm:text-4xl">
-              Turning ideas into clean, scalable web products.
-            </h2>
+        {/* Centered Header */}
+        <div className="text-center animate-fade-up">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+            Get To Know Me
+          </p>
+          <h2 className="mt-2.5 text-3xl font-bold tracking-tight text-heading sm:text-4xl">
+            About Me
+          </h2>
+          <div
+            aria-hidden="true"
+            className="mx-auto mt-4 h-[3px] w-14 rounded-full bg-accent"
+          />
+        </div>
 
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-description sm:text-base">
+        <div className="mx-auto mt-12 grid max-w-6xl gap-10 lg:grid-cols-12 lg:items-center lg:gap-12 animate-fade-up-delay">
+          {/* Left Column: About Story */}
+          <div className="lg:col-span-6">
+            <h3 className="text-xl font-bold tracking-tight text-heading sm:text-2xl">
+              Turning ideas into clean, scalable web products.
+            </h3>
+
+            <div className="mt-4 space-y-4 text-sm leading-relaxed text-description sm:text-base">
               <p>
                 I&apos;m a{" "}
                 <span className="font-medium text-accent">
@@ -108,7 +119,7 @@ export function About() {
           </div>
 
           {/* Right Column: Focus Cards */}
-          <div className="space-y-4 lg:col-span-6 animate-fade-up-delay">
+          <div className="space-y-4 lg:col-span-6">
             {highlights.map((item) => (
               <div
                 key={item.title}

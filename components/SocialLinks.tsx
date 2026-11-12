@@ -1,4 +1,4 @@
-import { PROFILE } from "@/lib/profile";
+import { getGmailComposeUrl, PROFILE } from "@/lib/profile";
 
 export function SocialLinks() {
   return (
@@ -24,9 +24,11 @@ export function SocialLinks() {
 
       {/* Email */}
       <a
-        href={`mailto:${PROFILE.email}`}
+        href={getGmailComposeUrl()}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Email"
-        title={PROFILE.email}
+        title={`Send email to ${PROFILE.email}`}
         className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-[#EA4335] text-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
       >
         <svg

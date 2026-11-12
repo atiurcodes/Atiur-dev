@@ -1,4 +1,5 @@
-import { PROFILE } from "@/lib/profile";
+import Link from "next/link";
+import { getGmailComposeUrl, PROFILE } from "@/lib/profile";
 
 export function Footer() {
   return (
@@ -7,13 +8,13 @@ export function Footer() {
         {/* Top Row: Brand & Bio on Left, Social Links on Right */}
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start">
           <div>
-            <a
-              href="#top"
+            <Link
+              href="/"
               className="inline-block text-xl font-bold tracking-tight text-heading transition-opacity duration-200 hover:opacity-85 sm:text-2xl"
             >
               {PROFILE.name}
               <span className="text-accent">.</span>
-            </a>
+            </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
               Driven by a passion to build clean digital products with Next.js
               and TypeScript, crafting responsive web experiences that inspire
@@ -40,7 +41,9 @@ export function Footer() {
             </a>
 
             <a
-              href={`mailto:${PROFILE.email}`}
+              href={getGmailComposeUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-muted transition-colors duration-200 hover:text-accent"
             >
               <svg

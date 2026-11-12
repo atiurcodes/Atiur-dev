@@ -9,7 +9,7 @@ import { Skills } from "@/components/Skills";
 
 export default function Home() {
   return (
-    <div id="top" className="min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <main>
         <Hero />

@@ -1,14 +1,28 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { PROFILE } from "@/lib/profile";
+import { getGmailComposeUrl, PROFILE } from "@/lib/profile";
 import { SocialLinks } from "./SocialLinks";
 
 export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [submittedState, setSubmittedState] = useState<{
+    name: string;
+    gmailUrl: string;
+  } | null>(null);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback ignored if clipboard access is blocked
+    }
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -19,15 +33,12 @@ export function Contact() {
 
     if (!trimmedName || !trimmedEmail || !trimmedMessage) return;
 
-    const subject = encodeURIComponent(
-      `Portfolio Inquiry from ${trimmedName}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${trimmedName}\nEmail: ${trimmedEmail}\n\nMessage:\n${trimmedMessage}`
-    );
+    const subjectText = `Portfolio Inquiry from ${trimmedName}`;
+    const bodyText = `Name: ${trimmedName}\nEmail: ${trimmedEmail}\n\nMessage:\n${trimmedMessage}`;
+    const gmailUrl = getGmailComposeUrl(subjectText, bodyText);
 
-    window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
-    setSubmittedName(trimmedName);
+    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    setSubmittedState({ name: trimmedName, gmailUrl });
     setName("");
     setEmail("");
     setMessage("");
@@ -66,34 +77,48 @@ export function Contact() {
               out using the form, or via direct email.
             </p>
 
-            {/* Email Card */}
-            <div className="mt-6 flex items-center gap-4 rounded-xl border border-border bg-surface p-4 shadow-xs transition-colors duration-200 hover:border-accent/60">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent ring-1 ring-accent/25">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.8}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                  className="h-5 w-5"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
-              </div>
-              <div className="min-w-0">
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
-                  Email
-                </p>
-                <a
-                  href={`mailto:${PROFILE.email}`}
-                  className="mt-0.5 block truncate text-sm font-medium text-heading transition-colors duration-200 hover:text-accent"
-                >
-                  {PROFILE.email}
-                </a>
-              </div>
+            {/* Email Card (Whole info area opens Gmail Compose + Copy button) */}
+            <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-border bg-surface p-4 shadow-xs transition-colors duration-200 hover:border-accent/60">
+              <a
+                href={getGmailComposeUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Send email to ${PROFILE.email}`}
+                className="group flex min-w-0 flex-1 items-center gap-4"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent ring-1 ring-accent/25 transition-colors duration-200 group-hover:bg-accent group-hover:text-accent-foreground">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.8}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="h-5 w-5"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
+                    Email
+                  </p>
+                  <p className="mt-0.5 truncate text-sm font-medium text-heading transition-colors duration-200 group-hover:text-accent">
+                    {PROFILE.email}
+                  </p>
+                </div>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                aria-label="Copy email address"
+                className="shrink-0 rounded-lg border border-border bg-background px-2.5 py-1.5 font-mono text-[11px] font-medium text-muted transition-colors duration-200 hover:border-accent/60 hover:text-accent"
+              >
+                {copied ? "Copied!" : "Copy"}
+              </button>
             </div>
 
             {/* Location Card */}
@@ -145,11 +170,13 @@ export function Contact() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
-                className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"
+                className="h-4 w-4 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:transition-none"
               >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
+                <g className="transition-transform duration-200 ease-out group-hover:translate-y-1 motion-reduce:transition-none">
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="15" y2="3" />
+                </g>
               </svg>
               <span>Download Resume</span>
             </a>
@@ -237,14 +264,24 @@ export function Contact() {
                 </button>
               </div>
 
-              {submittedName && (
-                <p
+              {submittedState && (
+                <div
                   role="status"
-                  className="rounded-lg border border-accent/30 bg-accent/10 px-4 py-2.5 text-xs font-medium text-accent sm:text-sm"
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-accent/30 bg-accent/10 px-4 py-3 text-xs font-medium text-accent sm:text-sm"
                 >
-                  Thanks, {submittedName}! Opening your email client to reach{" "}
-                  {PROFILE.email}.
-                </p>
+                  <span>
+                    Thanks, {submittedState.name}! Gmail compose opened to reach{" "}
+                    {PROFILE.email}.
+                  </span>
+                  <a
+                    href={submittedState.gmailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 hover:text-heading"
+                  >
+                    Open Gmail again
+                  </a>
+                </div>
               )}
             </form>
           </div>

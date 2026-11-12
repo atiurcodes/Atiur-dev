@@ -10,3 +10,15 @@ export const PROFILE = {
   resumeFileName: "Atiur-Rahman-Resume.pdf",
 } as const;
 
+export function getGmailComposeUrl(subject?: string, body?: string): string {
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: PROFILE.email,
+  });
+
+  if (subject) params.set("su", subject);
+  if (body) params.set("body", body);
+
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}

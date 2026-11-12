@@ -10,19 +10,15 @@ export function Hero() {
       id="hero"
       className="relative overflow-hidden py-14 sm:py-20 lg:py-24"
     >
-      {/* Soft Emerald Atmospheric Glow matching Light & Dark (#0F172A + #10B981) */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-[16%] top-6 -z-10 h-80 w-80 rounded-full bg-teal-300/35 blur-[110px] dark:bg-[#10b981]/10"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-[44%] -z-10 h-72 w-72 rounded-full bg-emerald-300/25 blur-[110px] dark:bg-[#10b981]/5"
-      />
-
       <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:px-12">
         {/* Left Side: Greeting, Name, Role, Bio, Socials + Resume Button */}
-        <div className="lg:col-span-7 animate-fade-up">
+        <div className="relative lg:col-span-7 animate-fade-up">
+          {/* Soft Emerald Glow starting from the center of the left section and fading right (Light Mode only) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[42%] top-1/2 -z-10 h-64 w-[280px] -translate-y-1/2 rounded-full bg-gradient-to-r from-teal-300/45 via-emerald-300/25 to-transparent blur-[95px] sm:h-72 sm:w-[420px] lg:h-80 lg:w-[500px] lg:blur-[110px] dark:hidden"
+          />
+
           <p className="text-base font-medium text-muted sm:text-lg">
             Hello, I&apos;m
           </p>
@@ -59,11 +55,13 @@ export function Hero() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
-                className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-y-0.5"
+                className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:transition-none"
               >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
+                <g className="transition-transform duration-200 ease-out group-hover:translate-y-1 motion-reduce:transition-none">
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="15" y2="3" />
+                </g>
               </svg>
               <span>Resume</span>
             </a>
