@@ -42,7 +42,13 @@ const PROJECTS: ProjectItem[] = [
       "JWT",
     ],
     liveUrl: "https://better-together-coral.vercel.app/",
-    githubLinks: [{ url: "https://github.com/atiurcodes/better-together" }],
+    githubLinks: [
+      { label: "Client", url: "https://github.com/atiurcodes/better-together" },
+      {
+        label: "Server",
+        url: "https://github.com/atiurcodes/better-together-server",
+      },
+    ],
     image: betterTogetherImage,
   },
   {

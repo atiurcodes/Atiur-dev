@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const ROLES = [
-  "A Full-Stack Developer",
+  "A Full-Stack Web Developer",
   "A Next.js Engineer",
   "A Frontend Specialist",
 ];
@@ -52,6 +52,6 @@ export function TypewriterRole() {
         className="animate-cursor-blink ml-0.5 inline-block h-[1.15em] w-[2px] translate-y-[2px] bg-accent"
       />
     </p>
-  );
+  )
 }
 

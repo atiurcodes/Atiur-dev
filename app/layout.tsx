@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -18,6 +19,31 @@ export const metadata: Metadata = {
   title: "Atiur Rahman | Full-Stack Developer",
   description:
     "Personal portfolio of Atiur Rahman — Full-Stack Developer crafting fast, responsive web applications with Next.js, React, TypeScript, and Node.js.",
+
+  openGraph: {
+    title: "Atiur Rahman | Full-Stack Developer",
+    description:
+      "Explore my portfolio, technical skills, and full-stack web development projects.",
+    url: "https://nextjs-portfolio-pi-silk.vercel.app/",
+    siteName: "Atiur Rahman Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Atiur Rahman - Full Stack Web Developer Portfolio",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Atiur Rahman | Full-Stack Developer",
+    description:
+      "Explore my portfolio and web development projects.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
