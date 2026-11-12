@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Atiur Rahman | Full-Stack Developer",
     description:
       "Explore my portfolio, technical skills, and full-stack web development projects.",
-    url: "https://nextjs-portfolio-pi-silk.vercel.app/",
+    url: "https://atiur-dev.vercel.app",
     siteName: "Atiur Rahman Portfolio",
     images: [
       {
