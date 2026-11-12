@@ -5,7 +5,7 @@ export const PROFILE = {
   github: "https://github.com/atiurcodes",
   linkedin: "https://www.linkedin.com/in/atiur-rahman5",
   // TODO: Replace with your real WhatsApp link, e.g. "https://wa.me/8801XXXXXXXXX"
-  whatsapp: "https://wa.me/",
+  whatsapp: "https://wa.me/8801796973384",
   resumePath: "/resume.pdf",
   resumeFileName: "Atiur-Rahman-Resume.pdf",
 } as const;

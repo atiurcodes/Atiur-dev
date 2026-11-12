@@ -173,10 +173,8 @@ export function Contact() {
                 className="h-4 w-4 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:transition-none"
               >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <g className="transition-transform duration-200 ease-out group-hover:translate-y-1 motion-reduce:transition-none">
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" x2="12" y1="15" y2="3" />
-                </g>
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" x2="12" y1="15" y2="3" />
               </svg>
               <span>Download Resume</span>
             </a>
